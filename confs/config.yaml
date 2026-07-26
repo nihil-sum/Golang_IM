@@ -1,0 +1,6 @@
+DB:
+  host:     "192.168.137.1"
+  port:     7897
+  user:     "nihil"
+  password: "050903"
+  database: "devdb"
