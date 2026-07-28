@@ -20,9 +20,17 @@ type LoginRequest struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+type RegisterRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
 
 type LoginHandler struct {
 	s *service.LoginService
+}
+type RegHandler struct {
+	s *service.RegService
 }
 
 // The
@@ -81,5 +89,26 @@ func (h *LoginHandler) Login(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		token: token,
+	})
+}
+func (h *RegHandler) Register(c *gin.Context) {
+	var req RegisterRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{
+			"message": "invalid request",
+		})
+	}
+	err := h.s.Register(
+		req.Username,
+		req.Password,
+		req.Email,
+	)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Failed to register",
+		})
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "User registered successfully",
 	})
 }

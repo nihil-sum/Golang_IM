@@ -8,6 +8,9 @@ import (
 type LoginService struct {
 	R repos.UsersRepo
 }
+type RegService struct {
+	R repos.UsersRepo
+}
 
 // @TODO:
 func (s *LoginService) Login(
@@ -24,4 +27,19 @@ func (s *LoginService) Login(
 	}
 
 	return user, nil
+}
+func (s *RegService) Register(
+	username string,
+	password string,
+	email string,
+) error {
+	err := s.R.CreateUser(models.UserBasic{
+		Name:     username,
+		Password: password,
+		Email:    email,
+	})
+	if err != nil {
+		panic("Failed to create user")
+	}
+	return nil
 }
