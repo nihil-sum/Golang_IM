@@ -6,6 +6,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var PrivateKey string = "nihillovesyvonneforever"
+
 type DBConfig struct {
 	Host     string `mapstructure:"host"`
 	Port     uint64 `mapstructure:"port"`

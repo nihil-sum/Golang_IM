@@ -6,10 +6,12 @@ import (
 )
 
 func SetupRouter(r *gin.Engine) {
+
+	loginHandler := handler.LoginHandler{}
 	api := r.Group("/api")
 	auth := api.Group("/auth")
 	{
-		auth.POST("/login", handler.LoginHandler())
+		auth.POST("/login", loginHandler.Login)
 	}
 
 }

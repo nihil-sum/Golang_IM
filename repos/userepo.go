@@ -15,8 +15,10 @@ type UsersRepo interface {
 	CreateUser(user models.UserBasic) error                                     //Register
 	DeleteUser(username string) error                                           //Delete the account
 }
+type urepo struct {
+}
 
-func MatchByUsername(username string, password string) (
+func (r *urepo) MatchByUsername(username string, password string) (
 	models.UserBasic,
 	error,
 ) {
